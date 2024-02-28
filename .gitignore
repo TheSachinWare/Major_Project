@@ -1,0 +1,5 @@
+.env
+node_modules/
+
+# If we are using MAC,
+# **/.DS_Store

@@ -1,0 +1,162 @@
+<% layout("/layouts/boilerplate") %> 
+
+    <!-- <h1>All Listings</h1> -->
+
+    <!-- <form method="GET" action="/listings/new">
+        <button>Create New Listing</button>
+    </form> -->
+
+    <style>
+        #filters{
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter {
+            text-align: center;
+            margin-right: 2rem;
+            margin-top: 2rem;
+            opacity: 0.7;
+        }
+
+        .filter .material-symbols-outlined{
+            color: black;
+            font-size: 24px !important;
+        }
+
+        .filter:hover{
+            opacity: 1;
+            cursor: pointer;
+        }
+
+        .filter p {
+            font-size: 0.8rem;
+        }
+
+        .tax-info{
+            /* visibility: hidden; */
+            display: none;
+        }
+
+        .tax-toggle {
+            border: 1px solid black;
+            border-radius: 1rem;
+            height: 3rem;
+            padding: 1rem;
+            margin-left: 2.5rem;
+            display: flex;
+            align-items: center;
+        }
+    </style>
+
+    <div id="filters">
+        <div class="collapse d-inline-flex gap-1 "> <!--d-inline-flex gap-1-->
+            <div class="filter">
+                <div><span class="material-symbols-outlined filter-icon" >local_fire_department</span> </div>
+                <p>Trending</p>
+            </div>
+    
+            <div class="filter">
+                <div><span class="material-symbols-outlined filter-icon">bed</span> </div>
+                <p>Rooms</p>
+            </div>
+    
+            <div class="filter">
+                <span class="material-symbols-outlined filter-icon">location_city</span>
+                <p>Iconic Cities</p>
+            </div>
+    
+            <div class="filter">
+                <div><span class="material-symbols-outlined filter-icon">landscape</span> </div>
+                <p>Mountains</p>
+            </div>
+    
+            <div class="filter">
+                <div><span class="material-symbols-outlined filter-icon">fort</span> </div>
+                <p>Castles</p>
+            </div>
+    
+            <div class="filter">
+                <div><span class="material-symbols-outlined filter-icon">pool</span> </div>
+                <p>Amazing Pools</p>
+            </div>
+    
+            <div class="filter">
+                <div><span class="material-symbols-outlined filter-icon">camping</span> </div>
+                <p>Camping</p>
+            </div>
+    
+            <div class="filter">
+                <div><span class="material-symbols-outlined filter-icon">agriculture</span> </div>
+                <p>Farms</p>
+            </div>
+    
+            <div class="filter">
+                <div><span class="material-symbols-outlined filter-icon">ac_unit</span> </div>
+                <p>Arctic</p>
+            </div>    
+
+            <div class="filter">
+                <div><span class="material-symbols-outlined filter-icon">energy</span> </div>
+                <p>Windmills</p>
+            </div>
+    
+            <div class="filter">
+                <div><span class="material-symbols-outlined filter-icon">beach_access</span> </div>
+                <p>Beach</p>
+            </div>    
+        </div>
+
+        <div class="tax-toggle">
+            <div class="form-check-reverse form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                <label class="form-check-label" for="flexSwitchCheckDefault">Display total after taxes</label>
+              </div>
+        </div>
+    </div>
+
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+
+        <% for(let listing of allListings) {%>
+        <a href="/listings/<%= listing._id %>" class="listing-link">
+            <div class="card col listing-card" style="width: 20rem;">
+                <img src="<%= listing.image.url %>" class="card-img-top" alt="Listing_image" style="height : 20rem">
+
+                <div class="card-img-overlay">&star;</div>
+
+                <div class="card-body">
+                    <p class="card-text">
+                        <b><%= listing.title %> </b> <br>
+
+                        &#8377; <%= typeof listing.price === 'number' ? listing.price.toLocaleString("en-IN") : listing.price %> / night. &nbsp; &nbsp;
+                        <i class="tax-info">  + 18% GST.</i>
+                    </p>
+                </div>
+            </div>
+        </a>
+        <% } %>
+    </div>
+
+    <!-- <ul>
+        <% // for(let listing of allListings) {%>
+            <li><a href="/listings/<%= // listing._id %>"><%= // listing.title %></a></li>
+        <% // } %>
+    </ul> -->
+
+<script>
+    let taxSwitch = document.getElementById("flexSwitchCheckDefault");
+    taxSwitch.addEventListener("click", () => {
+        // console.log("Clicked");
+        let taxInfo = document.getElementsByClassName("tax-info");
+
+        for(info of taxInfo){
+            if(info.style.display != "inline"){
+                info.style.display = "inline";
+            } else{
+                info.style.display = "none";
+            }
+        }
+        // console.log(taxInfo);
+    })
+</script>
